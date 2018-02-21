@@ -164,25 +164,47 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 			statement = [buri, RDF::URI.new(baseurl + "position"), RDF::Literal.new(row["pos(1-based)"])]
 			writer << statement
 			
-			statement = [buri, RDF::URI.new(m2r + "allele_reference"), RDF::Literal.new(row["ref"])]
+			statement = [buri, RDF::URI.new(m2r + "reference_allele"), RDF::Literal.new(row["ref"])]
 			writer << statement
 			
-			statement = [buri, RDF::URI.new(m2r + "allele_alteration"), RDF::Literal.new(row["alt"])]
+			statement = [buri, RDF::URI.new(m2r + "alternative_allele"), RDF::Literal.new(row["alt"])]
+			writer << statement
+
+			vlist = row["genename"].split(/[;\:]/)
+			if vlist.length >= 2
+				for value in vlist do
+					guri = RDF::URI.new(baseurl + value)
+					statement = [buri, RDF::URI.new(baseurl + "gene_name"), guri]
+					writer << statement
+					
+					statement = [guri, RDF.type, RDF::URI.new(m2r + "Gene")]
+					writer << statement
+					
+					statement = [guri, rdfsLabel, RDF::Literal.new(value)]
+					writer << statement
+				end
+			else
+				guri = RDF::URI.new(baseurl + row["genename"])
+				statement = [buri, RDF::URI.new(baseurl + "gene_name"), guri]
+				writer << statement
+				
+				statement = [guri, RDF.type, RDF::URI.new(m2r + "Gene")]
+				writer << statement
+				
+				statement = [guri, rdfsLabel, RDF::Literal.new(row["genename"])]
+				writer << statement
+			end
+			
+			statement = [buri, RDF::URI.new(baseurl + "hg19_chromosome"), RDF::Literal.new(row["hg19_chr"])]
 			writer << statement
 			
-			statement = [buri, RDF::URI.new(baseurl + "gene_name"), RDF::Literal.new(row["genename"])]
+			statement = [buri, RDF::URI.new(baseurl + "hg19_position"), RDF::Literal.new(row["hg19_pos(1-based)"])]
 			writer << statement
 			
-			statement = [buri, RDF::URI.new(baseurl + "hg19_position"), RDF::Literal.new(row["hg19_chr"])]
+			statement = [buri, RDF::URI.new(baseurl + "reference_amino_acid"), RDF::Literal.new(row["aaref"])]
 			writer << statement
 			
-			statement = [buri, RDF::URI.new(baseurl + "hg19_chromosome"), RDF::Literal.new(row["hg19_pos(1-based)"])]
-			writer << statement
-			
-			statement = [buri, RDF::URI.new(baseurl + "amino_acid_reference"), RDF::Literal.new(row["aaref"])]
-			writer << statement
-			
-			statement = [buri, RDF::URI.new(baseurl + "amino_acid_alteration"), RDF::Literal.new(row["aaalt"])]
+			statement = [buri, RDF::URI.new(baseurl + "alternative_amino_acid"), RDF::Literal.new(row["aaalt"])]
 			writer << statement
 
 			ensemblURI = RDF::URI.new(ensemblGene + row["Ensembl_geneid"])
