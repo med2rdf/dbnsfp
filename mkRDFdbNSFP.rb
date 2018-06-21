@@ -151,9 +151,13 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 	open(filename) do |file|
 		csv = CSV.new(file, headers: true, col_sep: "\t")
 		while row = csv.shift
-			blist = ["variation/grch38", row["#chr"], row["pos(1-based)"], row["ref"], row["alt"] ]
-			burl = blist.join("_")
+			blist = ["grch38", row["#chr"], row["pos(1-based)"], row["ref"], row["alt"] ]
+			bid = blist.join("_")
+			burl = "variation/" + bid
 			buri = RDF::URI.new(baseurl+burl)
+			
+			statement = [buri, identifier, bid]
+			writer << statement
 			
 			statement = [buri, RDF.type, Variant]
 			writer << statement
