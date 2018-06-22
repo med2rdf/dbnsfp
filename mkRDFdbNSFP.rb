@@ -16,6 +16,8 @@ ensemblProtein = "http://rdf.ebi.ac.uk/resource/ensembl.protein/"
 identifierEnsembl = "https://identifiers.org/ensembl/"
 sio = "http://semanticscience.org/ontology/"
 m2r = "http://med2rdf.org/ontology/med2rdf#"
+faldo = "http://biohackathon.org/resource/faldo#"
+hco = "http://identifiers.org/hco/"
 
 hasValue = RDF.value
 rdfsLabel = RDF::URI.new(rdfs + "label")
@@ -71,7 +73,9 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 	ebit: ensemblTranscript,
 	ebip: ensemblProtein,
 	idf: identifierEnsembl,
-	m2r: m2r
+	m2r: m2r,
+	hco: hco,
+	faldo: faldo
 	
 	}
 	) do |writer|
@@ -155,6 +159,7 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 			bid = blist.join("_")
 			burl = "variation/" + bid
 			buri = RDF::URI.new(baseurl+burl)
+			faldouri = RDF::URI.new(baseurl + "faldo/" + bid)
 			
 			statement = [buri, identifier, bid]
 			writer << statement
@@ -162,10 +167,19 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 			statement = [buri, RDF.type, Variant]
 			writer << statement
 			
+			statement = [buri, RDF::URI.new(hco + "build"), RDF::URI.new(hco + "GRCh38")]
+			writer << statement
+			
 			statement = [buri, RDF::URI.new(baseurl + "chromosome"), RDF::Literal.new(row["#chr"])]
 			writer << statement
 			
-			statement = [buri, RDF::URI.new(baseurl + "position"), RDF::Literal.new(row["pos(1-based)"])]
+			statement = [buri, RDF::URI.new(faldo + "location"), faldouri]
+			writer << statement
+			
+			statement = [faldouri, RDF::URI.new(faldo + "position"), RDF::Literal.new(row["pos(1-based)"].to_i)]
+			writer << statement
+			
+			statement = [faldouri, RDF.type, RDF::URI.new(faldo + "ExactPosition")]
 			writer << statement
 			
 			statement = [buri, RDF::URI.new(m2r + "reference_allele"), RDF::Literal.new(row["ref"])]
@@ -198,11 +212,30 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 				statement = [guri, rdfsLabel, RDF::Literal.new(row["genename"])]
 				writer << statement
 			end
+
+			hg19list = ["hg19", row["hg19_chr"], row["hg19_pos(1-based)"], row["ref"], row["alt"] ]
+			hg19uri = RDF::URI.new(baseurl + "variation/" + hg19list.join("_"))
+			hg19faldouri = RDF::URI.new(baseurl + "faldo/" + hg19list.join("_"))
 			
-			statement = [buri, RDF::URI.new(baseurl + "hg19_chromosome"), RDF::Literal.new(row["hg19_chr"])]
+			statement = [buri, RDF::URI.new(baseurl + "hg19"), hg19uri]
 			writer << statement
 			
-			statement = [buri, RDF::URI.new(baseurl + "hg19_position"), RDF::Literal.new(row["hg19_pos(1-based)"])]
+			statement = [hg19uri, RDF.type, Variant]
+			writer << statement
+			
+			statement = [hg19uri, RDF::URI.new(hco + "build"), RDF::URI.new(hco + "Hg19")]
+			writer << statement
+			
+			statement = [hg19uri, RDF::URI.new(baseurl + "chromosome"), RDF::Literal.new(row["hg19_chr"])]
+			writer << statement
+			
+			statement = [hg19uri, RDF::URI.new(faldo + "location"), hg19faldouri]
+			writer << statement
+			
+			statement = [hg19faldouri, RDF::URI.new(faldo + "position"), RDF::Literal.new(row["hg19_pos(1-based)"].to_i)]
+			writer << statement
+			
+			statement = [hg19faldouri, RDF.type, RDF::URI.new(faldo + "ExactPosition")]
 			writer << statement
 			
 			statement = [buri, RDF::URI.new(baseurl + "reference_amino_acid"), RDF::Literal.new(row["aaref"])]
