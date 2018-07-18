@@ -23,7 +23,7 @@ hasValue = RDF.value
 rdfsLabel = RDF::URI.new(rdfs + "label")
 seeAlso = RDF::URI.new(rdfs + "seeAlso")
 identifier = RDF::URI.new("http://dublincore.org/documents/dcmi-terms/identifier")
-Variant = RDF::URI.new(baseurl+"Variant")
+Variant = RDF::URI.new(m2r+"Variation")
 hasPrediction = RDF::URI.new(baseurl+"hasPrediction")
 Prediction = "Damage Prediction"
 PredictionC = RDF::URI.new(baseurl+"DamagePrediction")
@@ -156,10 +156,12 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 		csv = CSV.new(file, headers: true, col_sep: "\t")
 		while row = csv.shift
 			blist = ["grch38", row["#chr"], row["pos(1-based)"], row["ref"], row["alt"] ]
+			plist = ["grch38", row["#chr"], row["pos(1-based)"]]
 			bid = blist.join("_")
+			posid = plist.join("_")
 			burl = "variation/" + bid
 			buri = RDF::URI.new(baseurl+burl)
-			faldouri = RDF::URI.new(baseurl + "faldo/" + bid)
+			faldouri = RDF::URI.new(baseurl + "faldo/" + posid)
 			
 			statement = [buri, identifier, bid]
 			writer << statement
@@ -167,13 +169,13 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 			statement = [buri, RDF.type, Variant]
 			writer << statement
 			
-			statement = [buri, RDF::URI.new(hco + "build"), RDF::URI.new(hco + "GRCh38")]
-			writer << statement
-			
-			statement = [buri, RDF::URI.new(baseurl + "chromosome"), RDF::Literal.new(row["#chr"])]
-			writer << statement
-			
 			statement = [buri, RDF::URI.new(faldo + "location"), faldouri]
+			writer << statement
+			
+			statement = [faldouri, identifier, posid]
+			writer << statement
+			
+			statement = [faldouri, RDF::URI.new(faldo + "reference"), RDF::URI.new(hco + row["#chr"] + "#GRCh38")]
 			writer << statement
 			
 			statement = [faldouri, RDF::URI.new(faldo + "position"), RDF::Literal.new(row["pos(1-based)"].to_i)]
@@ -213,23 +215,29 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 				writer << statement
 			end
 
-			hg19list = ["hg19", row["hg19_chr"], row["hg19_pos(1-based)"], row["ref"], row["alt"] ]
-			hg19uri = RDF::URI.new(baseurl + "variation/" + hg19list.join("_"))
-			hg19faldouri = RDF::URI.new(baseurl + "faldo/" + hg19list.join("_"))
+			hg19list = ["grch37", row["hg19_chr"], row["hg19_pos(1-based)"], row["ref"], row["alt"] ]
+			hg19poslist = ["grch37", row["hg19_chr"], row["hg19_pos(1-based)"] ]
+			hg19id = hg19list.join("_")
+			hg19posid = hg19poslist.join("_")
+			hg19uri = RDF::URI.new(baseurl + "variation/" + hg19id)
+			hg19faldouri = RDF::URI.new(baseurl + "faldo/" + hg19posid)
 			
-			statement = [buri, RDF::URI.new(baseurl + "hg19"), hg19uri]
+			statement = [buri, RDF::URI.new(baseurl + "grch37"), hg19uri]
+			writer << statement
+			
+			statement = [hg19uri, identifier, hg19id]
 			writer << statement
 			
 			statement = [hg19uri, RDF.type, Variant]
 			writer << statement
 			
-			statement = [hg19uri, RDF::URI.new(hco + "build"), RDF::URI.new(hco + "Hg19")]
-			writer << statement
-			
-			statement = [hg19uri, RDF::URI.new(baseurl + "chromosome"), RDF::Literal.new(row["hg19_chr"])]
-			writer << statement
-			
 			statement = [hg19uri, RDF::URI.new(faldo + "location"), hg19faldouri]
+			writer << statement
+			
+			statement = [hg19faldouri, identifier, hg19posid]
+			writer << statement
+			
+			statement = [hg19faldouri, RDF::URI.new(baseurl + "reference"), RDF::URI.new(hco + row["hg19_chr"] + "#GRCh37")]
 			writer << statement
 			
 			statement = [hg19faldouri, RDF::URI.new(faldo + "position"), RDF::Literal.new(row["hg19_pos(1-based)"].to_i)]
@@ -346,6 +354,7 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 								i = i + 1
 								muri = RDF::URI.new(baseurl+burl+"_" + category + "_" + prop + "_" + i.to_s)
 								vnode = RDF::Literal.new(value)
+								vvalue = RDF::Literal.new(value.to_f)
 								if cList.length == 2
 									statement = [curi, puri, vnode]
 									writer << statement
@@ -357,7 +366,7 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 									statement = [muri, RDF.type, type]
 									writer << statement
 
-									statement = [muri, hasValue, vnode]
+									statement = [muri, hasValue, vvalue]
 									writer << statement
 								end
 								
@@ -373,6 +382,7 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 						else
 								muri = RDF::URI.new(baseurl+burl+"_" + category + "_" + prop)
 								vnode = RDF::Literal.new(values)
+								vvalue = RDF::Literal.new(values.to_f)
 								if cList.length == 2
 									statement = [curi, puri, vnode]
 									writer << statement
@@ -384,7 +394,7 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 									statement = [muri, RDF.type, type]
 									writer << statement
 
-									statement = [muri, hasValue, vnode]
+									statement = [muri, hasValue, vvalue]
 									writer << statement
 								end
 
