@@ -62,6 +62,16 @@ TypePreList = [baseurl+"algorithm/", baseurl+"conservation/", baseurl+"populatio
 confname = ARGV[0]
 filename = ARGV[1]
 
+def transType(value,typ)
+	if typ == "float"
+		value.to_f
+	elsif typ == "int"
+		value.to_i
+	else
+		value
+	end
+end
+
 
 RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, prefixes:  {
 	nil => baseurl,
@@ -106,6 +116,7 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 			end
 			att = row[1]
 			val = row[2]
+			typ = row[3]
 			if !outConf.has_key?(category)
 				outConf[category] = -1
 				outData[category] = Array.new
@@ -118,27 +129,27 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 				case att
 				when "score"
 					outConf[category] = 0
-					outData[category].push([att,val,Score])
+					outData[category].push([att,val,typ,Score])
 				when "rankscore"
 					outConf[category] = 0
-					outData[category].push([att,val,RankScore])
+					outData[category].push([att,val,typ,RankScore])
 				when "prediction"
 					outConf[category] = 0
-					outData[category].push(["result",val])
+					outData[category].push(["result",val,typ])
 				when "cscore"
 					outConf[category] = 1
-					outData[category].push([att,val,CScore])
+					outData[category].push([att,val,typ,CScore])
 				when "crankscore"
 					outConf[category] = 1
-					outData[category].push([att,val,CRankScore])
+					outData[category].push([att,val,typ,CRankScore])
 				when "count"
 					outConf[category] = 2
-					outData[category].push([att,val,Count])
+					outData[category].push([att,val,typ,Count])
 				when "frequency"
 					outConf[category] = 2
-					outData[category].push([att,val,Frequency])
+					outData[category].push([att,val,typ,Frequency])
 				else
-					outCond[category].push([att,val])
+					outCond[category].push([att,val,typ])
 				end
 
 				if newFlag and outConf[category] != -1
@@ -194,7 +205,7 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 			if vlist.length >= 2
 				for value in vlist do
 					guri = RDF::URI.new(baseurl + value)
-					statement = [buri, RDF::URI.new(baseurl + "gene_name"), guri]
+					statement = [buri, RDF::URI.new(m2r + "gene"), guri]
 					writer << statement
 					
 					statement = [guri, RDF.type, RDF::URI.new(m2r + "Gene")]
@@ -205,7 +216,7 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 				end
 			else
 				guri = RDF::URI.new(baseurl + row["genename"])
-				statement = [buri, RDF::URI.new(baseurl + "gene_name"), guri]
+				statement = [buri, RDF::URI.new(m2r + "gene"), guri]
 				writer << statement
 				
 				statement = [guri, RDF.type, RDF::URI.new(m2r + "Gene")]
@@ -278,6 +289,7 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 				for cList in outCond[category] do
 					prop = cList[0]
 					values = row[cList[1]]
+					typ = cList[2]
 					puri = RDF::URI.new(baseurl+prop)
 					condMultiple[prop] = Array.new
 					if values and values != "."
@@ -301,12 +313,11 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 									statement = [ensemblURI, seeAlso, identifierURI]
 									writer << statement
 								else
-									vnode = RDF::Literal.new(value)
+									vnode = RDF::Literal.new(transType(value,typ))
 									condMultiple[prop].push(vnode)
 									
 									statement = [muri, puri, vnode]
 									writer << statement
-									
 								end
 							end
 						else
@@ -329,7 +340,7 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 									writer << statement
 									
 								else
-									vnode = RDF::Literal.new(values)
+									vnode = RDF::Literal.new(transType(values,typ))
 									condSingle[prop] = vnode
 									
 									statement = [muri, puri, vnode]
@@ -339,12 +350,12 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 						end
 					end
 				end
-				
 				for cList in outData[category] do
 					prop = cList[0]
 					puri = RDF::URI.new(baseurl+prop)
 					values = row[cList[1]]
-					type = cList[2]
+					typ = cList[2]
+					type = cList[3]
 					
 					if values and values != "."
 						vlist = values.split(/[;\:]/)
@@ -353,9 +364,8 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 							for value in vlist do
 								i = i + 1
 								muri = RDF::URI.new(baseurl+burl+"_" + category + "_" + prop + "_" + i.to_s)
-								vnode = RDF::Literal.new(value)
-								vvalue = RDF::Literal.new(value.to_f)
-								if cList.length == 2
+								vnode = RDF::Literal.new(transType(value,typ))
+								if cList.length == 3
 									statement = [curi, puri, vnode]
 									writer << statement
 									
@@ -366,7 +376,7 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 									statement = [muri, RDF.type, type]
 									writer << statement
 
-									statement = [muri, hasValue, vvalue]
+									statement = [muri, hasValue, vnode]
 									writer << statement
 								end
 								
@@ -381,9 +391,8 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 							end
 						else
 								muri = RDF::URI.new(baseurl+burl+"_" + category + "_" + prop)
-								vnode = RDF::Literal.new(values)
-								vvalue = RDF::Literal.new(values.to_f)
-								if cList.length == 2
+								vnode = RDF::Literal.new(transType(values,typ))
+								if cList.length == 3
 									statement = [curi, puri, vnode]
 									writer << statement
 								
@@ -394,7 +403,7 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 									statement = [muri, RDF.type, type]
 									writer << statement
 
-									statement = [muri, hasValue, vvalue]
+									statement = [muri, hasValue, vnode]
 									writer << statement
 								end
 
