@@ -204,7 +204,7 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 			vlist = row["genename"].split(/[;\:]/)
 			if vlist.length >= 2
 				for value in vlist do
-					guri = RDF::URI.new(baseurl + value)
+					guri = RDF::URI.new(baseurl + "gene/" + value)
 					statement = [buri, RDF::URI.new(m2r + "gene"), guri]
 					writer << statement
 					
@@ -215,7 +215,7 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 					writer << statement
 				end
 			else
-				guri = RDF::URI.new(baseurl + row["genename"])
+				guri = RDF::URI.new(baseurl + "gene/" + row["genename"])
 				statement = [buri, RDF::URI.new(m2r + "gene"), guri]
 				writer << statement
 				
