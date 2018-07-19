@@ -203,6 +203,8 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 
 			vlist = row["genename"].split(/[;\:]/)
 			if vlist.length >= 2
+				elist = row["Ensembl_geneid"].split(/[;\:]/)
+				i = 0
 				for value in vlist do
 					guri = RDF::URI.new(baseurl + "gene/" + value)
 					statement = [buri, RDF::URI.new(m2r + "gene"), guri]
@@ -213,6 +215,17 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 					
 					statement = [guri, rdfsLabel, RDF::Literal.new(value)]
 					writer << statement
+					
+					ensemblURI = RDF::URI.new(ensemblGene + elist[i])
+					identifierURI = RDF::URI.new(identifierEnsembl + elist[i])
+					
+					statement = [guri, seeAlso, ensemblURI]
+					writer << statement
+					
+					statement = [guri, seeAlso, identifierURI]
+					writer << statement
+					
+					i += 1
 				end
 			else
 				guri = RDF::URI.new(baseurl + "gene/" + row["genename"])
@@ -224,6 +237,16 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 				
 				statement = [guri, rdfsLabel, RDF::Literal.new(row["genename"])]
 				writer << statement
+				
+				ensemblURI = RDF::URI.new(ensemblGene + row["Ensembl_geneid"])
+				identifierURI = RDF::URI.new(identifierEnsembl + row["Ensembl_geneid"])
+				
+				statement = [guri, seeAlso, ensemblURI]
+				writer << statement
+				
+				statement = [guri, seeAlso, identifierURI]
+				writer << statement
+				
 			end
 
 			hg19list = ["grch37", row["hg19_chr"], row["hg19_pos(1-based)"], row["ref"], row["alt"] ]
@@ -261,15 +284,6 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 			writer << statement
 			
 			statement = [buri, RDF::URI.new(baseurl + "alternative_amino_acid"), RDF::Literal.new(row["aaalt"])]
-			writer << statement
-
-			ensemblURI = RDF::URI.new(ensemblGene + row["Ensembl_geneid"])
-			identifierURI = RDF::URI.new(identifierEnsembl + row["Ensembl_geneid"])
-
-			statement = [buri, RDF::URI.new(baseurl + "ensemble_gene"), ensemblURI]
-			writer << statement
-
-			statement = [ensemblURI, seeAlso, identifierURI]
 			writer << statement
 			
 			outConf.each_key do |category|
