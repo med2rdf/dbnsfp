@@ -8,3 +8,5 @@ WORKDIR /work
 
 ADD mkRDFdbNSFP.rb academic.conf /work/
 
+ENV RUBYOPT -EUTF-8
+

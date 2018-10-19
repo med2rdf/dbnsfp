@@ -21,9 +21,15 @@ Get the source code of this tool from github.
 
 `# cd dbNSFP`
 
-Run docker command.
+Run docker commands.
 
 `# docker build -t dbnsfp .`
+
+For proxy
+
+`#docker build -t dbnsfp --build-arg HTTPS_PROXY=http://hoge:8080 .`
+
+Now, let's make RDFs!
 
 `# docker run -v /hoge/data:/data dbnsfp ruby /work/mkRDFdbNSFP.rb /work/academic.conf /data/dbNSFPxxxa.chrx`
 
