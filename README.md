@@ -17,9 +17,9 @@ Get the source code of this tool from github.
 
 `# cd /hoge`
 
-`# git clone https://github.com/med2rdf/dbNSFP.git`
+`# git clone https://github.com/med2rdf/dbnsfp.git`
 
-`# cd dbNSFP`
+`# cd dbnsfp`
 
 Run docker commands.
 
