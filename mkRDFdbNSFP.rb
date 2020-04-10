@@ -289,17 +289,9 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 			outConf.each_key do |category|
 				curi = RDF::URI.new(baseurl+burl+"_" + category)
 				
-				statement = [buri, PropList[outConf[category]], curi]
-				writer << statement
-
-				statement = [curi, RDF.type, ClassList[outConf[category]]]
-				writer << statement
-
-				statement = [curi, TypePList[outConf[category]],RDF::URI.new(TypePreList[outConf[category]] + category) ]
-				writer << statement
-
 				condSingle = Hash.new
 				condMultiple = Hash.new
+				noout = true
 				for cList in outCond[category] do
 					prop = cList[0]
 					values = row[cList[1]]
@@ -307,6 +299,7 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 					puri = RDF::URI.new(baseurl+prop)
 					condMultiple[prop] = Array.new
 					if values and values != "."
+						noout = false
 						vlist = values.split(/[;\:]/)
 						if vlist.length >= 2
 							for value in vlist do
@@ -372,6 +365,7 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 					type = cList[3]
 					
 					if values and values != "."
+						noout = false
 						vlist = values.split(/[;\:]/)
 						if vlist.length >= 2
 							i = 0
@@ -430,6 +424,16 @@ RDF::Turtle::Writer.open(filename + ".ttl", stream: true, base_uri:  baseurl, pr
 								end
 						end
 					end
+				end
+				if noout == false
+					statement = [buri, PropList[outConf[category]], curi]
+					writer << statement
+
+					statement = [curi, RDF.type, ClassList[outConf[category]]]
+					writer << statement
+
+					statement = [curi, TypePList[outConf[category]],RDF::URI.new(TypePreList[outConf[category]] + category) ]
+					writer << statement
 				end
 			end
 		end
