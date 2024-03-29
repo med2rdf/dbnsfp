@@ -1,0 +1,447 @@
+[
+  {
+    "column": "SIFT_score",
+    "class": "SIFT",
+    "variable": "sift_score"
+  },
+  {
+    "column": "SIFT_rankscore",
+    "class": "SIFT",
+    "variable": "sift_rankscore"
+  },
+  {
+    "column": "SIFT4G_score",
+    "class": "SIFT4G",
+    "variable": "sift4g_score"
+  },
+  {
+    "column": "SIFT4G_rankscore",
+    "class": "SIFT4G",
+    "variable": "sift4g_rankscore"
+  },
+  {
+    "column": "PROVEAN_score",
+    "class": "PROVEAN",
+    "variable": "provean_score"
+  },
+  {
+    "column": "PROVEAN_rankscore",
+    "class": "PROVEAN",
+    "variable": "provean_rankscore"
+  },
+  {
+    "column": "Polyphen2_HDIV_score",
+    "class": "Polyphen2Hdiv",
+    "variable": "polyphen2_hdiv_score"
+  },
+  {
+    "column": "Polyphen2_HDIV_rankscore",
+    "class": "Polyphen2Hdiv",
+    "variable": "polyphen2_hdiv_rankscore"
+  },
+  {
+    "column": "Polyphen2_HVAR_score",
+    "class": "Polyphen2Hvar",
+    "variable": "polyphen2_hvar_score"
+  },
+  {
+    "column": "Polyphen2_HVAR_rankscore",
+    "class": "Polyphen2Hvar",
+    "variable": "polyphen2_hvar_rankscore"
+  },
+  {
+    "column": "LRT_score",
+    "class": "LRT",
+    "variable": "lrt_score"
+  },
+  {
+    "column": "LRT_rankscore",
+    "class": "LRT",
+    "variable": "lrt_rankscore"
+  },
+  {
+    "column": "MutationTaster_score",
+    "class": "MutationTaster",
+    "variable": "mutation_taster_score"
+  },
+  {
+    "column": "MutationTaster_rankscore",
+    "class": "MutationTaster",
+    "variable": "mutation_taster_rankscore"
+  },
+  {
+    "column": "MutationAssessor_score",
+    "class": "MutationAssessor",
+    "variable": "mutation_assessor_score"
+  },
+  {
+    "column": "MutationAssessor_rankscore",
+    "class": "MutationAssessor",
+    "variable": "mutation_assessor_rankscore"
+  },
+  {
+    "column": "FATHMM_score",
+    "class": "FATHMM",
+    "variable": "fathmm_score"
+  },
+  {
+    "column": "FATHMM_rankscore",
+    "class": "FATHMM",
+    "variable": "fathmm_rankscore"
+  },
+  {
+    "column": "fathmm_MKL_coding_score",
+    "class": "FathmmMklCoding",
+    "variable": "fathmm_mkl_coding_score"
+  },
+  {
+    "column": "fathmm_MKL_coding_rankscore",
+    "class": "FathmmMklCoding",
+    "variable": "fathmm_mkl_coding_rankscore"
+  },
+  {
+    "column": "fathmm_XF_coding_score",
+    "class": "FathmmXfCoding",
+    "variable": "fathmm_xf_coding_score"
+  },
+  {
+    "column": "fathmm_XF_coding_rankscore",
+    "class": "FathmmXfCoding",
+    "variable": "fathmm_xf_coding_rankscore"
+  },
+  {
+    "column": "CADD_raw",
+    "class": "CADD",
+    "variable": "cadd_score"
+  },
+  {
+    "column": "CADD_raw_rankscore",
+    "class": "CADD",
+    "variable": "cadd_rankscore"
+  },
+  {
+    "column": "CADD_raw_hg19",
+    "class": "CADDHg19",
+    "variable": "cadd_hg19_score"
+  },
+  {
+    "column": "CADD_raw_rankscore_hg19",
+    "class": "CADDHg19",
+    "variable": "cadd_hg19_rankscore"
+  },
+  {
+    "column": "CADD_phred",
+    "class": "CADDPhred",
+    "variable": "cadd_phred_score"
+  },
+  {
+    "column": "CADD_phred_hg19",
+    "class": "CADDPhredHg19",
+    "variable": "cadd_phred_hg19_score"
+  },
+  {
+    "column": "VEST4_score",
+    "class": "VEST4",
+    "variable": "vest4_score"
+  },
+  {
+    "column": "VEST4_rankscore",
+    "class": "VEST4",
+    "variable": "vest4_rankscore"
+  },
+  {
+    "column": "integrated_fitCons_score",
+    "class": "IntegratedFitcons",
+    "variable": "integrated_fit_cons_score"
+  },
+  {
+    "column": "integrated_fitCons_rankscore",
+    "class": "IntegratedFitcons",
+    "variable": "integrated_fit_cons_rankscore"
+  },
+  {
+    "column": "GM12878_fitCons_score",
+    "class": "GM12878Fitcons",
+    "variable": "gm12878_fit_cons_score"
+  },
+  {
+    "column": "GM12878_fitCons_rankscore",
+    "class": "GM12878Fitcons",
+    "variable": "gm12878_fit_cons_rankscore"
+  },
+  {
+    "column": "H1_hESC_fitCons_score",
+    "class": "H1HescFitcons",
+    "variable": "h1_hesc_fit_cons_score"
+  },
+  {
+    "column": "H1_hESC_fitCons_rankscore",
+    "class": "H1HescFitcons",
+    "variable": "h1_hesc_fit_cons_rankscore"
+  },
+  {
+    "column": "HUVEC_fitCons_score",
+    "class": "HUVECFitcons",
+    "variable": "huvec_fit_cons_score"
+  },
+  {
+    "column": "HUVEC_fitCons_rankscore",
+    "class": "HUVECFitcons",
+    "variable": "huvec_fit_cons_rankscore"
+  },
+  {
+    "column": "LINSIGHT_rankscore",
+    "class": "LINSIGHT",
+    "variable": "linsight_rankscore"
+  },
+  {
+    "column": "DANN_score",
+    "class": "DANN",
+    "variable": "dann_score"
+  },
+  {
+    "column": "DANN_rankscore",
+    "class": "DANN",
+    "variable": "dann_rankscore"
+  },
+  {
+    "column": "MetaLR_score",
+    "class": "MetaLR",
+    "variable": "meta_lr_score"
+  },
+  {
+    "column": "MetaLR_rankscore",
+    "class": "MetaLR",
+    "variable": "meta_lr_rankscore"
+  },
+  {
+    "column": "MetaSVM_score",
+    "class": "MetaSVM",
+    "variable": "meta_svm_score"
+  },
+  {
+    "column": "MetaSVM_rankscore",
+    "class": "MetaSVM",
+    "variable": "meta_svm_rankscore"
+  },
+  {
+    "column": "GenoCanyon_score",
+    "class": "GenoCanyon",
+    "variable": "geno_canyon_score"
+  },
+  {
+    "column": "GenoCanyon_rankscore",
+    "class": "GenoCanyon",
+    "variable": "geno_canyon_rankscore"
+  },
+  {
+    "column": "Eigen_raw_coding_rankscore",
+    "class": "EigenRawCoding",
+    "variable": "eigen_raw_coding_rankscore"
+  },
+  {
+    "column": "Eigen_PC_raw_coding_rankscore",
+    "class": "EigenPcRawCoding",
+    "variable": "eigen_pc_raw_coding_rankscore"
+  },
+  {
+    "column": "M_CAP_score",
+    "class": "MCap",
+    "variable": "m_cap_score"
+  },
+  {
+    "column": "M_CAP_rankscore",
+    "class": "MCap",
+    "variable": "m_cap_rankscore"
+  },
+  {
+    "column": "REVEL_score",
+    "class": "REVEL",
+    "variable": "revel_score"
+  },
+  {
+    "column": "REVEL_rankscore",
+    "class": "REVEL",
+    "variable": "revel_rankscore"
+  },
+  {
+    "column": "MutPred_score",
+    "class": "MutPred",
+    "variable": "mut_pred_score"
+  },
+  {
+    "column": "MutPred_rankscore",
+    "class": "MutPred",
+    "variable": "mut_pred_rankscore"
+  },
+  {
+    "column": "MVP_score",
+    "class": "MVP",
+    "variable": "mvp_score"
+  },
+  {
+    "column": "MVP_rankscore",
+    "class": "MVP",
+    "variable": "mvp_rankscore"
+  },
+  {
+    "column": "MPC_score",
+    "class": "MPC",
+    "variable": "mpc_score"
+  },
+  {
+    "column": "MPC_rankscore",
+    "class": "MPC",
+    "variable": "mpc_rankscore"
+  },
+  {
+    "column": "PrimateAI_score",
+    "class": "PrimateAI",
+    "variable": "primate_ai_score"
+  },
+  {
+    "column": "PrimateAI_rankscore",
+    "class": "PrimateAI",
+    "variable": "primate_ai_rankscore"
+  },
+  {
+    "column": "DEOGEN2_score",
+    "class": "DEOGEN2",
+    "variable": "deogen2_score"
+  },
+  {
+    "column": "DEOGEN2_rankscore",
+    "class": "DEOGEN2",
+    "variable": "deogen2_rankscore"
+  },
+  {
+    "column": "BayesDel_addAF_score",
+    "class": "BayesDelAddAF",
+    "variable": "bayes_del_add_af_score"
+  },
+  {
+    "column": "BayesDel_addAF_rankscore",
+    "class": "BayesDelAddAF",
+    "variable": "bayes_del_add_af_rankscore"
+  },
+  {
+    "column": "BayesDel_noAF_score",
+    "class": "BayesDelNoAF",
+    "variable": "bayes_del_no_af_score"
+  },
+  {
+    "column": "BayesDel_noAF_rankscore",
+    "class": "BayesDelNoAF",
+    "variable": "bayes_del_no_af_rankscore"
+  },
+  {
+    "column": "ClinPred_score",
+    "class": "ClinPred",
+    "variable": "clin_pred_score"
+  },
+  {
+    "column": "ClinPred_rankscore",
+    "class": "ClinPred",
+    "variable": "clin_pred_rankscore"
+  },
+  {
+    "column": "LIST_S2_score",
+    "class": "LISTS2",
+    "variable": "list_s2_score"
+  },
+  {
+    "column": "LIST_S2_rankscore",
+    "class": "LISTS2",
+    "variable": "list_s2_rankscore"
+  },
+  {
+    "column": "MetaRNN_score",
+    "class": "MetaRNN",
+    "variable": "meta_rnn_score"
+  },
+  {
+    "column": "MetaRNN_rankscore",
+    "class": "MetaRNN",
+    "variable": "meta_rnn_rankscore"
+  },
+  {
+    "column": "gMVP_score",
+    "class": "GMVP",
+    "variable": "gmvp_score"
+  },
+  {
+    "column": "gMVP_rankscore",
+    "class": "GMVP",
+    "variable": "gmvp_rankscore"
+  },
+  {
+    "column": "VARITY_R_score",
+    "class": "VARITYR",
+    "variable": "varity_r_score"
+  },
+  {
+    "column": "VARITY_R_rankscore",
+    "class": "VARITYR",
+    "variable": "varity_r_rankscore"
+  },
+  {
+    "column": "VARITY_ER_score",
+    "class": "VARITYEr",
+    "variable": "varity_er_score"
+  },
+  {
+    "column": "VARITY_ER_rankscore",
+    "class": "VARITYEr",
+    "variable": "varity_er_rankscore"
+  },
+  {
+    "column": "VARITY_R_LOO_score",
+    "class": "VARITYRLoo",
+    "variable": "varity_r_loo_score"
+  },
+  {
+    "column": "VARITY_R_LOO_rankscore",
+    "class": "VARITYRLoo",
+    "variable": "varity_r_loo_rankscore"
+  },
+  {
+    "column": "VARITY_ER_LOO_score",
+    "class": "VARITYErLoo",
+    "variable": "varity_er_loo_score"
+  },
+  {
+    "column": "VARITY_ER_LOO_rankscore",
+    "class": "VARITYErLoo",
+    "variable": "varity_er_loo_rankscore"
+  },
+  {
+    "column": "ESM1b_score",
+    "class": "ESM1b",
+    "variable": "esm1b_score"
+  },
+  {
+    "column": "ESM1b_rankscore",
+    "class": "ESM1b",
+    "variable": "esm1b_rankscore"
+  },
+  {
+    "column": "EVE_score",
+    "class": "EVE",
+    "variable": "eve_score"
+  },
+  {
+    "column": "EVE_rankscore",
+    "class": "EVE",
+    "variable": "eve_rankscore"
+  },
+  {
+    "column": "AlphaMissense_score",
+    "class": "AlphaMissense",
+    "variable": "alpha_missense_score"
+  },
+  {
+    "column": "AlphaMissense_rankscore",
+    "class": "AlphaMissense",
+    "variable": "alpha_missense_rankscore"
+  }
+]

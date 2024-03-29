@@ -1,0 +1,92 @@
+[
+  {
+    "column": "phyloP100way_vertebrate",
+    "class": "PhyloP100wayVertebrate",
+    "variable": "phylo_p100way_vertebrate_score"
+  },
+  {
+    "column": "phyloP100way_vertebrate_rankscore",
+    "class": "PhyloP100wayVertebrate",
+    "variable": "phylo_p100way_vertebrate_rankscore"
+  },
+  {
+    "column": "phyloP470way_mammalian",
+    "class": "PhyloP470wayMammalian",
+    "variable": "phylo_p470way_mammalian_score"
+  },
+  {
+    "column": "phyloP470way_mammalian_rankscore",
+    "class": "PhyloP470wayMammalian",
+    "variable": "phylo_p470way_mammalian_rankscore"
+  },
+  {
+    "column": "phyloP17way_primate",
+    "class": "PhyloP17wayPrimate",
+    "variable": "phylo_p17way_primate_score"
+  },
+  {
+    "column": "phyloP17way_primate_rankscore",
+    "class": "PhyloP17wayPrimate",
+    "variable": "phylo_p17way_primate_rankscore"
+  },
+  {
+    "column": "phastCons100way_vertebrate",
+    "class": "PhastCons100wayVertebrate",
+    "variable": "phast_cons100way_vertebrate_score"
+  },
+  {
+    "column": "phastCons100way_vertebrate_rankscore",
+    "class": "PhastCons100wayVertebrate",
+    "variable": "phast_cons100way_vertebrate_rankscore"
+  },
+  {
+    "column": "phastCons470way_mammalian",
+    "class": "PhastCons470wayMammalian",
+    "variable": "phast_cons470way_mammalian_score"
+  },
+  {
+    "column": "phastCons470way_mammalian_rankscore",
+    "class": "PhastCons470wayMammalian",
+    "variable": "phast_cons470way_mammalian_rankscore"
+  },
+  {
+    "column": "phastCons17way_primate",
+    "class": "PhastCons17wayPrimate",
+    "variable": "phast_cons17way_primate_score"
+  },
+  {
+    "column": "phastCons17way_primate_rankscore",
+    "class": "PhastCons17wayPrimate",
+    "variable": "phast_cons17way_primate_rankscore"
+  },
+  {
+    "column": "GERP_RS",
+    "class": "GERPRs",
+    "variable": "gerp_rs_score"
+  },
+  {
+    "column": "GERP_RS_rankscore",
+    "class": "GERPRs",
+    "variable": "gerp_rs_rankscore"
+  },
+  {
+    "column": "SiPhy_29way_logOdds",
+    "class": "SiPhy29wayLogodds",
+    "variable": "si_phy_29way_log_odds_score"
+  },
+  {
+    "column": "SiPhy_29way_logOdds_rankscore",
+    "class": "SiPhy29wayLogodds",
+    "variable": "si_phy_29way_log_odds_rankscore"
+  },
+  {
+    "column": "bStatistic",
+    "class": "BStatistic",
+    "variable": "bstatistic_score"
+  },
+  {
+    "column": "bStatistic_rankscore",
+    "class": "BStatistic",
+    "variable": "bstatistic_rankscore"
+  }
+]
